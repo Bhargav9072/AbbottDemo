@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employeeui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employeeui
+  template:
+    metadata:
+      labels:
+        app: employeeui
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+
+      imagePullSecrets:
+      - name: acr-secret
+
+      containers:
+      - name: employeeui
+        image: bhargavacr001.azurecr.io/employeeui:v1
+        ports:
+        - containerPort: 80
